@@ -1,0 +1,222 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #cccccc;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.header {
+    background-color: #555; /* Màu nền header */
+    color: white;
+    text-align: right;
+    padding: 10px;
+    display: flex;
+    justify-content: end;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Thêm shadow */
+}
+
+.content {
+    flex-grow: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-boxes {
+    display: flex;
+    flex-direction: row; /* Sử dụng flexbox để xếp `box1`, `box2`, và `box3` theo hàng ngang */
+}
+
+.box {
+    flex: 1; /* Mỗi `box` chiếm 1/3 chiều ngang */
+    min-height: calc(20vh - 10px); /* Đặt tối thiểu chiều cao là 1/3 độ dài màn hình */
+    background-color: #cccccc;
+    /* border: 1px solid #999; */
+    margin: 5px;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    border-radius: 10px; /* Bo tròn góc của `box` */
+}
+
+.large-box {
+    flex: 2; /* `large-box` chiếm 2/3 chiều ngang */
+    background-color: #fbf2f2;
+    /* border: 1px solid #999; */
+    margin: 5px;
+    padding: 0px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Bo tròn góc của `large-box` */
+}
+
+.right-sidebar {
+    flex: 1; /* `right-sidebar` chiếm 1/3 chiều ngang */
+    display: flex;
+    flex-direction: column;
+}
+
+.small-box-right {
+    flex: 1;
+    background-color: #fbf2f2;
+    /* border: 1px solid #999; */
+    margin: 5px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px; /* Bo tròn góc của `small-box-right` */
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.large-box-container {
+    display: flex;
+    flex: 1;
+    flex-direction: row; /* Sử dụng flexbox để xếp `large-box` và `right-sidebar` theo hàng ngang */
+}
+
+/* Box 1 đại diện cho nhiệt độ */
+.box1 {
+    background:  #f00000;/* Gradient màu từ đỏ đến vàng */
+    box-shadow: 0 4px 6px rgba(63, 53, 53, 0.2);
+    font-size: xx-large;
+}
+
+/* Box 2 đại diện cho độ ẩm */
+.box2 {
+    background:  #007ACC; /* Gradient màu từ xanh đến xanh lam nhạt */
+    box-shadow: 0 4px 6px rgba(74, 69, 90, 0.2);
+    font-size: xx-large;
+}
+
+/* Box 3 đại diện cho ánh sáng */
+.box3 {
+    background: #FFD600; /* Gradient màu từ vàng đến đỏ */
+    box-shadow: 0 4px 6px rgba(76, 77, 64, 0.2);
+    font-size: xx-large;
+}
+
+.light {
+    flex: 1;
+}
+
+.buttons {
+    flex: 2;
+}
+
+
+#turn-on, #turn-off {
+    min-height: 70px;
+    width: 70px;
+}
+
+/* Đảm bảo hình ảnh quạt có kích thước cố định */
+#fan_img {
+    width: 130px;
+    height: 130px;
+}
+
+/* Tạo hoạt hình quay */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+#fan_img {
+    animation: spin 1.5s linear infinite; /* Thay đổi thời gian và kiểu hoạt hình tùy ý */
+}
+
+.circle_container {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Tạo hình tròn */
+    overflow: hidden; /* Ẩn nội dung vượt ra ngoài khung hình tròn */
+    position: relative; /* Để có thể căn giữa hình ảnh bên trong */
+}
+
+.circle_image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile_image {
+    border-radius: 50%;
+    width: 100px; /* Kích thước ảnh nhỏ hơn */
+    height: 100px; /* Kích thước ảnh nhỏ hơn */
+    object-fit: cover;
+    margin-bottom: 20px; /* Khoảng cách dưới ảnh */
+}
+
+.sidebar {
+    width: 250px;
+    height: 100%;
+    background-color: #333333;
+    color: #ffffff;
+    position: fixed;
+    top: 0;
+    right: -250px; /* Ẩn thanh chọn bên trái ban đầu */
+    transition: left 0.3s ease-in-out;
+}
+
+.sidebar-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+
+.main-content {
+    margin-left: 0; /* Để nội dung chính không bị che bởi thanh chọn */
+}
+
+/* Khi thanh chọn được hiển thị */
+.sidebar.active {
+    right : 0px;
+}
+
+#menuIcon {
+    font-size: 24px; /* Kích thước biểu tượng hoặc chữ */
+    cursor: pointer;
+}
+
+.sidebar-content a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    width: 100%; /* Chiều ngang bằng 100% */
+    height:70px;
+    text-align: left;
+    box-sizing: border-box; /* Đảm bảo padding không tăng kích thước ngoài cùng của phần tử */
+}
+
+.sidebar-content a:hover {
+    background-color: #555;
+}
+
+/* Tạo hiệu ứng nhấp nháy màu đỏ */
+/* .blink-red {
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0% {
+        color: red;
+    }
+    50% {
+        color: transparent;
+    }
+    100% {
+        color: red;
+    }
+} */

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Thông Tin Cá Nhân</title>
+    <style>
+        h1 {
+            margin: 0;
+        }
+
+        .info-box {
+            background-color: #fff;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px #888888;
+            text-align: center;
+        }
+
+        .info-box h2 {
+            color: #333;
+        }
+
+        .info-box p {
+            margin: 10px 0;
+        }
+
+        /* Định dạng màu sắc cho các ô thông tin */
+        #personal-info {
+            background-color: #74c7f4; /* Màu xanh nhạt */
+        }
+
+        #contact-info {
+            background-color: #67c5e9; /* Màu xanh đậm */
+        }
+
+        #github-info {
+            background-color: #f1f1f1; /* Màu xám nhạt */
+        }
+
+        #pdf-info {
+            background-color: #e0f7fa; /* Màu xanh dương nhạt */
+        }
+
+        #apidoc-info {
+            background-color: #ffe0b2; /* Màu cam nhạt */
+        }
+
+        #footer {
+            background-color: #00CED1; /* Màu xanh da trời */
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .info-box a {
+            color: #007bff; /* Màu xanh dương cho liên kết */
+            text-decoration: none;
+        }
+
+        .info-box a:hover {
+            text-decoration: underline;
+        }
+
+        .circle_image {
+            border-radius: 50%;
+            width: 150px; /* Kích thước ảnh */
+            height: 150px; /* Kích thước ảnh */
+            object-fit: cover;
+            margin-bottom: 20px; /* Khoảng cách dưới ảnh */
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="header">
+        <button id="toggleButton">
+            <div id="menuIcon">&#9776;</div>
+        </button>
+        <div class="circle_container">
+            <img class="circle_image" src="my_img.jpg" alt="Your Image">
+        </div>
+        <div class="sidebar">
+            <div class="sidebar-content">
+                <a href="trang_chu.html">Dashboard</a>
+                <a href="#">Xem Profile</a>
+                <a href="bang_thong_tin.html">Thông tin chi tiết</a>
+                <a href="lich_su_hanh_dong.html">Lịch sử hành động</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="info-box" id="personal-info">
+        <h2>Thông Tin Cá Nhân</h2>
+        <img class="profile_image" src="img_profile.png" alt="Ảnh cá nhân">
+        <p><strong>Họ và tên:</strong> Hoàng Hữu Đức</p>
+        <p><strong>Mã sinh viên:</strong> B21DCCN240</p>
+        <p><strong>Ngày sinh:</strong> 11/07/2003</p>
+    </div>
+
+    <div class="info-box" id="contact-info">
+        <h2>Thông Tin Liên Hệ</h2>
+        <p><strong>Địa chỉ:</strong> Hải Dương</p>
+        <p><strong>Email:</strong> hoangducptit@mail.com</p>
+        <p><strong>Số điện thoại:</strong> 0359809599</p>
+    </div>
+
+    <div class="info-box" id="github-info">
+        <h2>Github</h2>
+        <p><a href="https://github.com/DuckmanIT" target="_blank">Xem GitHub của tôi</a></p>
+    </div>
+
+    <div class="info-box" id="pdf-info">
+        <h2>Báo Cáo PDF</h2>
+        <p><a href="report.pdf" target="_blank">Tải xuống báo cáo</a></p>
+    </div>
+
+    <div class="info-box" id="apidoc-info">
+        <h2>Tài Liệu API</h2>
+        <p><a href="apidoc.html" target="_blank">Xem tài liệu API</a></p>
+    </div>
+
+    <footer id="footer">
+        <p>&copy; 2024 Thông Tin Cá Nhân</p>
+    </footer>
+</body>
+    <script src="main_script.js"></script>
+</html>

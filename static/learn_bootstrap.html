@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>IoT web</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="my_script.js"></script>
+
+</head>
+<body> 
+
+<div class="container-fluid bg-dark p-4 sm-3 w-100" style="height: 100vh;">
+
+  <div class="d-flex justify-content-end p-4 m-2 rounded-0">
+    <div class="card" style="width:50px; height:70px;">
+      <img class="card-img-top" src="C:\Users\admin\Downloads\avatar.jpg" alt="Card image">
+      <div class="card-body d-flex justify-content-center">
+        <a href="info.html" class="btn btn-info">Info</a>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="d-flex justify-content-between">
+    <div class="dropdown p-2 flex-fill bg-danger m-4 rounded-pill justify-content-center">
+      <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown">
+        Nhiệt độ
+      </button>
+      <span>30 C</span>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Biểu đồ nhiệt độ</a></li>
+        <li><a class="dropdown-item" href="#">Bảng chi tiết nhiệt độ</a></li>
+      </ul>
+    </div>
+    <div class="dropdown p-2 bg-warning flex-fill m-4 rounded-pill justify-content-center">
+      <button type="button" class = "btn btn-warning dropdown-toggle" data-bs-toggle="dropdown">
+        Ánh sáng
+      </button>
+      <span>60 CD</span>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Biểu đồ độ sáng</a></li>
+        <li><a class="dropdown-item" href="#">Bảng chi tiết độ sáng</a></li>
+      </ul>
+    </div>
+    <div class="dropdown p-2 bg-primary flex-fill m-4 rounded-pill">
+      <button type="button" class = "btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+        Độ ẩm
+      </button>
+      <span>30%</span>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Biểu đồ độ ẩm</a></li>
+        <li><a class="dropdown-item" href="#">Bảng chi tiết độ ẩm</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-around">
+    <div class="p-2 d-flex flex-grow-1 bg-light m4 rounded-pill justify-content-center">
+      <div id="chart_show">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+      <canvas id="myChart" style="width:100%;min-width:600px"></canvas>
+      <script>
+        const xValues = [100,200,300,400,500,600,700,800,900,1000];
+        
+        new Chart("myChart", {
+          type: "line",
+          data: {
+            labels: xValues,
+            datasets: [{ 
+              data: [860,1140,1060,1060,1070,1110,1330,2210,7830,2478],
+              borderColor: "red",
+              fill: false
+            }, { 
+              data: [1600,1700,1700,1900,2000,2700,4000,5000,6000,7000],
+              borderColor: "yellow",
+              fill: false
+            }, { 
+              data: [300,700,2000,5000,6000,4000,2000,1000,200,100],
+              borderColor: "blue",
+              fill: false
+            }]
+          },
+          options: {
+            legend: {display: false}
+          }
+        });
+        </script>
+        </div>
+    </div>
+    <div class="p2 d-flex flex-column">
+      <button id="led01" type="button" class="btn btn-success p-2 m-2" data-bs-toggle="tooltip" onclick="changeStatus('led01_mod', 'led01')">
+        Led 01<span id="led01_mod" class="badge bg-danger" >On</span>
+      </button>
+      <button id="led02" type="button" class="btn btn-success p-2 m-2" data-bs-toggle="tooltip" onclick="changeStatus('led02_mod', 'led02')">
+        Led 02<span id="led02_mod" class="badge bg-danger" >On</span>
+      </button>
+    </div>
+  </div>
+</div>
+</body>
+
+

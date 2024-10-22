@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Dữ liệu</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #333;
+            color: white;;
+        }
+
+        td {
+            background-color: rgba(255, 255, 255, 0.892);
+            color: black;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        .pagination {
+            display: inline-block;
+            margin: 20px 0;
+        }
+
+        .pagination a {
+            text-decoration: none;
+            padding: 8px 16px;
+            background-color: #f2f2f2;
+            color: #333;
+            border: 1px solid #ccc;
+        }
+
+        .pagination a:hover {
+            background-color: #ddd;
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <button id="toggleButton">
+            <div id="menuIcon">&#9776;</div>
+        </button>
+        <div class="circle_container">
+            <img  class="circle_image" src="my_img.jpg" alt="Your Image">
+        </div>
+        <div class="sidebar">
+            <div class="sidebar-content">
+                <a href="trang_chu.html">Dashboard</a>
+                <a href="profile.html">Xem Profile</a>
+                <a href="#">Thông tin chi tiết</a>
+                <a href="lich_su_hanh_dong.html">Lịch sử hành động</a>
+            </div>
+        </div>    
+    </div>
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Nhập nội dung...">
+        <button id="search-button">Tìm kiếm</button>
+        <select id="criteria">
+          <option value="temperature">Nhiệt độ</option>
+          <option value="humidity">Độ ẩm</option>
+          <option value="light">Ánh sáng</option>
+        </select>
+      </div>
+    <h1>Thông tin chi tiết</h1>
+    <div class="pagination">
+        <a href="#" id="prevPage">Previous</a>
+        <span id="currentPage">1</span>
+        <a href="#" id="nextPage">Next</a>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nhiệt độ</th>
+                <th>Ánh sáng</th>
+                <th>Độ ẩm</th>
+                <th>Thời gian</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Dữ liệu của bạn sẽ được đặt ở đây -->
+        </tbody>
+    </table>
+    <script src="bang.js"></script>
+    <script src="main_script.js"></script>
+</body>
+</html>

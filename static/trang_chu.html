@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- #0000AA	#000099	#000088	#000077 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <link rel="stylesheet" typr="text/css" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button id="toggleButton">
+                <div id="menuIcon">&#9776;</div>
+            </button>
+            <div class="circle_container">
+                <img  class="circle_image" src="my_img.jpg" alt="Your Image">
+            </div>
+            <div class="sidebar">
+                <div class="sidebar-content">
+                    <a href="#">Dashboard</a>
+                    <a href="profile.html">Xem Profile</a>
+                    <a href="bang_thong_tin.html">Thông tin chi tiết</a>
+                    <a href="lich_su_hanh_dong.html">Lịch sử hành động</a>
+                </div>
+            </div>
+            
+        </div>
+        <div class="top-boxes">
+            <div id="o_nd" class="box box1">
+                <div>
+                    <img id="nd_img" src="lanh.png">
+                </div>
+                <div>
+                    <p><span id = "nd">27</span> °C</p>
+                    <p id="tb_nd">Mát mẻ</p>
+                </div>
+            </div>
+            <div id="o_da" class="box box2">
+                <div>
+                    <img id="da_img" src="am_uot.png">
+                </div>
+                <div>
+                    <p ><span id = "da">27</span> %</p>
+                    <p id="tb_da">Độ ẩm vừa phải</p>
+                </div>
+            </div>
+            <div id="o_as" class="box box3">
+                <div>
+                    <img id="as_img" src="mat-troi.png">
+                </div>
+                <div>
+                    <p><span id = "as">27</span> LUX</p>
+                    <p id="tb_as">Ánh sáng vừa phải</p>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="large-box-container">
+                <div class="large-box" style="width: 67%;">
+                    <canvas id="myChart" width="400" height="200"></canvas>     
+                </div>
+                <div class="right-sidebar" style="width: 33%;">
+                    <div class="small-box-right">
+                        <div class="light">
+                            <img id = "light_image" src="den_sang.png" alt="Light On" class="light-on" value = "on">
+                        </div>
+                        <div class="buttons">
+                                <img id = "light_control" src="on.png" alt="on_control" onclick="changeStatus('turn_off')">
+                        </div>   
+                        <div>
+                            <p>Số lần bật đèn là: <span id = "lan_den"></span></p>
+                        </div>   
+                    </div>
+                    <div class="small-box-right">
+                        <div  id = "fan" class="fan" style="padding-left: 25px; padding-right: 20px;">
+                            <img id = "fan_img" src="fan.png" alt="Fan">
+                        </div>
+                        <div class="buttons">
+                                <img id="fan_control" src="on.png" alt="on_control" onclick="changeStatusFan('turn_off')">
+                        </div> 
+                        <p>Số lần bật quạt là: <span id = "lan_quat"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+  
+<script src="main_script.js"></script>
+<script src="chart.js"></script>
+</html>
