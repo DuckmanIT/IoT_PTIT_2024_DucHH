@@ -1,0 +1,359 @@
+{
+	"info": {
+		"_postman_id": "eefa954a-8cbf-45d5-9c88-d995d41349eb",
+		"name": "IoT API",
+		"description": "API for IoT application",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31866287"
+	},
+	"item": [
+		{
+			"name": "Add Data",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"humidity\": 50.5,\n  \"temperature\": 25.3,\n  \"light\": 300.2\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/add-data",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"add-data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Control Light",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"time\": \"2024-10-18T08:30:00Z\",\n  \"client_name\": \"Client1\",\n  \"action_name\": \"bật đèn\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/light",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"light"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Control Air Conditioner",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"time\": \"2024-10-18T08:30:00Z\",\n  \"client_name\": \"Client1\",\n  \"action_name\": \"bật đèn\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/airconditioner",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"air_conditioner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Control Fan",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"time\": \"2024-10-18T08:30:00Z\",\n  \"client_name\": \"Client1\",\n  \"action_name\": \"bật quạt\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/fan",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"fan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Data",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"start\": \"2024-10-01T00:00:00Z\",\n  \"end\": \"2024-10-19T23:59:59Z\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/get-data",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"get-data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Light Action Count",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/so-lan-den",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"so-lan-den"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Air Conditioner Action Count",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/so-lan-dieu-hoa",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"so-lan-den"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Fan Action Count",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/so-lan-quat",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"so-lan-quat"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get History",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"start\": \"2024-10-01T00:00:00Z\",\n  \"end\": \"2024-10-19T23:59:59Z\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/get-history",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"get-history"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Data",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 1\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/delete-data",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"delete-data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Data",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 1,\n  \"humidity\": 60,\n  \"temperature\": 27,\n  \"light\": 500\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/update-data",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"update-data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Data",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"condition\": \"temperature > 20\",\n  \"orderby\": \"temperature DESC\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/search-data",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"search-data"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
