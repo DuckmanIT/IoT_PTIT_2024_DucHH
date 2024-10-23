@@ -113,7 +113,7 @@ function changeStatusFan(active) {
 }
 
 function changeStatusAirConditioner(active) {
-    let lt = document.getElementById("air_conditioner_control");
+    let lt = document.getElementById("led2_control");
 
     data = {};
     const current_time = Date.now();

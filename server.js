@@ -204,16 +204,16 @@ app.post('/api/airconditioner', (req, res) => {
 
   var state = "Success";
 
-  if (action_name == "tắt quạt") {
+  if (action_name == "tắt điều hòa") {
     try {
-      mqttClient.publish("air_conditioner_control", "0");
+      mqttClient.publish("led2_control", "0");
     }catch (err) {
       state = "Error";
     }
   }
   else {
     try {
-      mqttClient.publish("air_conditioner_control", "1");
+      mqttClient.publish("led2_control", "1");
     }catch (err) {
       state = "Error";
     }
