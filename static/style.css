@@ -119,6 +119,13 @@ body {
 #fan_img {
     width: 130px;
     height: 130px;
+    animation: spin 1.5s linear infinite;
+}
+
+#air_conditioner_img {
+    width: 130px;
+    height: 130px;
+    animation: spin 1.5s linear infinite;
 }
 
 /* Tạo hoạt hình quay */
@@ -129,10 +136,6 @@ body {
     to {
         transform: rotate(360deg);
     }
-}
-
-#fan_img {
-    animation: spin 1.5s linear infinite; /* Thay đổi thời gian và kiểu hoạt hình tùy ý */
 }
 
 .circle_container {

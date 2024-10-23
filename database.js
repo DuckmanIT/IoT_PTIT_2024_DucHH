@@ -51,6 +51,11 @@ module.exports = {
     connection.query(query, callback);
   },
 
+  getSoLanDieuHoa : (data, callback) => {
+    const query = 'SELECT COUNT(*) FROM iot.action as lan_dieu_hoa WHERE action_name = "bật điều hòa"';
+    connection.query(query, callback);
+  },
+
   deleteData : (data, callback) => {
     const deleteQuery = "DELETE FROM data WHERE id = ?";
     connection.query(deleteQuery, [data.id], callback);

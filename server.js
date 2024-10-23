@@ -196,7 +196,44 @@ app.post('/api/fan', (req, res) => {
 
 })
 
+app.post('/api/airconditioner', (req, res) => {
 
+  const time = req.body.time;
+  const client_name = req.body.client_name;
+  const action_name = req.body.action_name;
+
+  var state = "Success";
+
+  if (action_name == "tắt quạt") {
+    try {
+      mqttClient.publish("air_conditioner_control", "0");
+    }catch (err) {
+      state = "Error";
+    }
+  }
+  else {
+    try {
+      mqttClient.publish("air_conditioner_control", "1");
+    }catch (err) {
+      state = "Error";
+    }
+  }
+
+  const dataToInsert = {
+    time : time,
+    client_name : client_name,
+    action_name : action_name,
+    state : state
+  }
+
+  database.insertHistory(dataToInsert, (err, results) => {
+    if (err) throw err;
+    console.log('Inserted ' + results.affectedRows + ' rows');
+  });
+
+  res.json({'state' : state});
+
+})
 
 app.post('/api/get-data', (req, res) => {
   // Thực hiện xử lý logic API ở đây
@@ -236,6 +273,17 @@ app.post('/api/so-lan-quat', (req, res) => {
     const so_lan = results[0]['COUNT(*)'];
     console.log(so_lan);
     res.json({'lan_quat':so_lan});
+  })
+});
+
+app.post('/api/so-lan-dieu-hoa', (req, res) => {
+  data = {};
+  database.getSoLanDieuHoa( data, (err, results) => {
+    if (err) throw err;
+    console.log(results);
+    const so_lan = results[0]['COUNT(*)'];
+    console.log(so_lan);
+    res.json({'lan_dieu_hoa':so_lan});
   })
 });
 
