@@ -346,17 +346,22 @@ app.put('/api/update-data', (req, res) => {
 app.post('/api/search-data', (req, res) => {
   const condition = req.body.condition;
   const orderby = req.body.orderby;
+  const startDate = req.body.startDate;
+  const endDate = req.body.endDate;
 
   const dataToSearch = {
-    condition : condition,
-    orderby : orderby
+      condition: condition,
+      orderby: orderby,
+      startDate: startDate,
+      endDate: endDate
   };
 
   database.searchData(dataToSearch, (err, results) => {
-    if(err) throw err;
-    res.json(results);
-  })
+      if (err) throw err;
+      res.json(results);
+  });
 });
+
 
 
 

@@ -24,17 +24,27 @@ module.exports = {
   },
 
   searchData: (condition, callback) => {
-    var searchQuery = "";
-    if (condition.condition == "") {
-      searchQuery = 'SELECT * FROM data';
+    let searchQuery = "SELECT * FROM data";
+    const queryParams = [];
+
+    // Nếu có điều kiện tìm kiếm
+    if (condition.condition) {
+        searchQuery += " WHERE " + condition.orderby + " = ?";
+        queryParams.push(condition.condition);
     }
-    else {
-      searchQuery = 'SELECT * FROM data WHERE ' + condition.orderby +  ' = ' + condition.condition;
+
+    // Nếu có khoảng thời gian, thêm vào truy vấn SQL
+    if (condition.startDate && condition.endDate) {
+        searchQuery += (condition.condition ? " AND" : " WHERE") + " time BETWEEN ? AND ?";
+        queryParams.push(condition.startDate, condition.endDate);
     }
-      
-    console.log(condition);
-    connection.query(searchQuery,  callback);
-  },
+
+    console.log("Truy vấn SQL:", searchQuery);
+    console.log("Tham số:", queryParams);
+
+    connection.query(searchQuery, queryParams, callback);
+},
+
 
   getData :(data, callback) => {
     const getQuery = "SELECT * FROM data ORDER BY time DESC LIMIT ?, ?";
