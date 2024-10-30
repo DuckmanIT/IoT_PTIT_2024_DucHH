@@ -5,12 +5,12 @@ const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
 // Lưu trữ danh sách các kết nối WebSocket
-const clients = new Set();
+const clients = new Set();  
 
 wss.on('connection', (ws) => {
   console.log('Client connected');
 
-  // Thêm kết nối mới vào danh sách
+  // Thêm kết nối m ới vào danh sách
   clients.add(ws);
 
   ws.on('message', (message) => {
@@ -362,6 +362,25 @@ app.post('/api/search-data', (req, res) => {
   });
 });
 
+app.post('/api/get-history', (req, res) => {
+    const start = req.body.start;
+    const end = req.body.end;
+    const startDate = req.body.start_date; // Thêm tham số start_date
+    const endDate = req.body.end_date; // Thêm tham số end_date
+
+    const dataToGet = {
+        start: start,
+        end: end,
+        start_date: startDate, // Thêm tham số vào đối tượng
+        end_date: endDate      // Thêm tham số vào đối tượng
+    };
+
+    database.getHistory(dataToGet, (err, results) => {
+        if (err) throw err;
+        console.log(results);
+        res.json(results);
+    });
+});
 
 
 

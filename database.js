@@ -76,10 +76,25 @@ module.exports = {
     connection.query(updateQuery, [data.temperature, data.humidity, data.light, data.id], callback);
   },
 
-  getHistory : (data, callback) => {
-    const getQuery = "SELECT * FROM action ORDER BY time DESC LIMIT ?, ?";
-    connection.query(getQuery, [data.start, data.end], callback);
-  },
+getHistory: (data, callback) => {
+    let getQuery = "SELECT * FROM action";
+    const queryParams = [];
+
+    // Nếu có khoảng thời gian, thêm vào truy vấn SQL
+    if (data.start_date && data.end_date) {
+        getQuery += " WHERE time BETWEEN ? AND ?";
+        queryParams.push(data.start_date, data.end_date);
+    }
+
+    // Thêm phần phân trang
+    getQuery += " ORDER BY time DESC LIMIT ?, ?";
+    queryParams.push(data.start, data.end - data.start);
+
+    connection.query(getQuery, queryParams, callback);
+},
+
+
+
 
   insertHistory : (data, callback) => {
     const insertQuery = "INSERT INTO action (time, client_name, action_name, state) VALUES (?, ?, ?, ?)";
