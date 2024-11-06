@@ -102,13 +102,15 @@ searchButton.addEventListener("click", function () {
     const end = endDate.value;
 
     const data = {
-        'condition': searchText,
-        'orderby': selectedCriteria,
-        'startDate': start,
-        'endDate': end
+        condition: searchText,
+        orderby: selectedCriteria,
+        startDate: start,
+        endDate: end,
+        page: 1, // Hoặc giá trị trang mong muốn
+        pageSize: 10 // Số bản ghi mỗi trang
     };
 
-    console.log(data); // Xem dữ liệu gửi đi trong console
+    console.log("Dữ liệu gửi đi:", data); // Đảm bảo chỉ là giá trị, không phải hàm
 
     // Gửi yêu cầu tìm kiếm
     const xhr = new XMLHttpRequest();
@@ -120,9 +122,10 @@ searchButton.addEventListener("click", function () {
 
     xhr.onload = function () {
         if (xhr.status === 200) {
-            // Xử lý kết quả tìm kiếm
             const responseData = JSON.parse(xhr.responseText);
+            console.log("Dữ liệu trả về:", responseData); // Kiểm tra dữ liệu trả về từ API
             tableBody.innerHTML = '';
+
             responseData.forEach(item => {
                 const row = document.createElement('tr');
                 
@@ -148,7 +151,5 @@ searchButton.addEventListener("click", function () {
         }
     };
 
-    prevPageLink.disabled = true;
-    nextPageLink.disabled = true;
     xhr.send(jsonData);
 });

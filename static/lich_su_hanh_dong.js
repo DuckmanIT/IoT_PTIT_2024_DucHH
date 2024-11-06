@@ -101,3 +101,8 @@
 
     // Hiển thị trang đầu tiên khi tải trang
     displayData(currentPage);
+
+    // let currentDate = new Date();
+    // let lastMonth = new Date(currentDate.getFullYear(), currentDate.getMonth-1, currentDate.getDate);
+    // document.getElementById('start-date').value = lastMonth
+    // document.getElementById('end-date').value = currentDate

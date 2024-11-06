@@ -96,28 +96,7 @@ app.get('/home', (req, res) => {
 });
 
 // Tạo tuyến đường API
-app.post('/api/add-data', (req, res) => {
-  // Thực hiện xử lý logic API ở đây
-  const humidity = req.body.humidity;
-  const temperature = req.body.temperature;
-  const light = req.body.light;
 
-  const dataToInsert = {
-    humidity : humidity,
-    temperature : temperature, 
-    light : light
-  };
-
-  database.insertData(dataToInsert, (err, results) => {
-    if (err) throw err;
-    console.log('Inserted ' + results.affectedRows + ' rows');
-  });
-
-  const data = {'meassage' : "Insert success"};
-
-  res.json(data);
-
-});
 
 app.post('/api/light', (req, res) => {
 
@@ -130,7 +109,7 @@ app.post('/api/light', (req, res) => {
   if (action_name == "tắt đèn") {
     try {
       mqttClient.publish("led_control", "0");
-    }catch (err) {
+    }catch (err) {f
       state = "Error";
     }
   }
@@ -344,23 +323,39 @@ app.put('/api/update-data', (req, res) => {
 });
 
 app.post('/api/search-data', (req, res) => {
+  console.log("Dữ liệu nhận từ frontend:", req.body);
+
   const condition = req.body.condition;
   const orderby = req.body.orderby;
   const startDate = req.body.startDate;
   const endDate = req.body.endDate;
+  const page = req.body.page || 1;
+  const pageSize = req.body.pageSize || 10;
 
   const dataToSearch = {
       condition: condition,
       orderby: orderby,
       startDate: startDate,
-      endDate: endDate
+      endDate: endDate,
+      page: page,
+      pageSize: pageSize
   };
 
+  console.log("Đang thực hiện truy vấn với các tham số:", dataToSearch);
+
   database.searchData(dataToSearch, (err, results) => {
-      if (err) throw err;
-      res.json(results);
+      if (err) {
+          console.error("Lỗi truy vấn:", err);
+          res.status(500).json({ error: "Lỗi truy vấn" });
+      } else {
+          console.log("Kết quả trả về:", results);
+          res.json(results);
+      }
   });
 });
+
+
+
 
 app.post('/api/get-history', (req, res) => {
     const start = req.body.start;

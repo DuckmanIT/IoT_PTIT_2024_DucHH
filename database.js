@@ -27,23 +27,33 @@ module.exports = {
     let searchQuery = "SELECT * FROM data";
     const queryParams = [];
 
-    // Nếu có điều kiện tìm kiếm
     if (condition.condition) {
-        searchQuery += " WHERE " + condition.orderby + " = ?";
-        queryParams.push(condition.condition);
+        if (condition.orderby === 'time') {
+            // Chuyển `time` sang định dạng MM/DD/YYYY, hh:mm:ss AM/PM
+            searchQuery += " WHERE DATE_FORMAT(time, '%m/%d/%Y, %h:%i:%s %p') LIKE ?";
+            queryParams.push(`%${condition.condition}%`);
+        } else {
+            searchQuery += " WHERE " + condition.orderby + " = ?";
+            queryParams.push(condition.condition);
+        }
     }
 
-    // Nếu có khoảng thời gian, thêm vào truy vấn SQL
-    if (condition.startDate && condition.endDate) {
-        searchQuery += (condition.condition ? " AND" : " WHERE") + " time BETWEEN ? AND ?";
-        queryParams.push(condition.startDate, condition.endDate);
-    }
+    const page = condition.page || 1;
+    const pageSize = condition.pageSize || 10;
+    const offset = (page - 1) * pageSize;
+
+    searchQuery += " ORDER BY time DESC LIMIT ? OFFSET ?";
+    queryParams.push(pageSize, offset);
 
     console.log("Truy vấn SQL:", searchQuery);
     console.log("Tham số:", queryParams);
 
     connection.query(searchQuery, queryParams, callback);
 },
+
+
+
+
 
 
   getData :(data, callback) => {
