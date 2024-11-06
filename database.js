@@ -86,22 +86,30 @@ module.exports = {
     connection.query(updateQuery, [data.temperature, data.humidity, data.light, data.id], callback);
   },
 
-getHistory: (data, callback) => {
+  getHistory: (data, callback) => {
     let getQuery = "SELECT * FROM action";
     const queryParams = [];
-
-    // Nếu có khoảng thời gian, thêm vào truy vấn SQL
-    if (data.start_date && data.end_date) {
-        getQuery += " WHERE time BETWEEN ? AND ?";
-        queryParams.push(data.start_date, data.end_date);
+  
+    if (data.exact_time) {
+      // Nếu có `exact_time`, thêm điều kiện tìm kiếm vào truy vấn
+      getQuery += " WHERE DATE_FORMAT(time, '%m/%d/%Y, %h:%i:%s %p') = ?";
+      queryParams.push(data.exact_time);
     }
-
-    // Thêm phần phân trang
-    getQuery += " ORDER BY time DESC LIMIT ?, ?";
-    queryParams.push(data.start, data.end - data.start);
-
+  
+    // Tính toán phân trang
+    const page = data.page || 1; 
+    const pageSize = data.pageSize || 10;
+    const offset = (page - 1) * pageSize;
+  
+    getQuery += " ORDER BY time DESC LIMIT ? OFFSET ?";
+    queryParams.push(pageSize, offset);
+  
+    console.log("Truy vấn SQL:", getQuery);
+    console.log("Tham số:", queryParams);
+  
     connection.query(getQuery, queryParams, callback);
-},
+  },
+  
 
 
 

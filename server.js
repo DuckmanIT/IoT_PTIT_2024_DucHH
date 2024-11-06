@@ -267,23 +267,18 @@ app.post('/api/so-lan-dieu-hoa', (req, res) => {
 });
 
 app.post('/api/get-history', (req, res) => {
-  // Thực hiện xử lý logic API ở đây
+  const { exact_time } = req.body; // Lấy exact_time từ request
 
-  start = req.body.start
-  end = req.body.end
-  const dataToGet = {
-    start : start,
-    end : end
-  }
+  // Tạo object để truyền vào hàm getHistory
+  const dataToGet = { exact_time };
 
   database.getHistory(dataToGet, (err, results) => {
-      if (err) throw err;
-      console.log(results);
-      res.json(results);
-  })
-  // Gửi dữ liệu trả lời cho client
-
+    if (err) throw err;
+    console.log(results);
+    res.json(results);
+  });
 });
+
 
 app.delete('/api/delete-data', (req, res) => {
   // Thực hiện xử lý logic API ở đây
@@ -345,26 +340,18 @@ app.post('/api/search-data', (req, res) => {
   });
 });
 
-
 app.post('/api/get-history', (req, res) => {
-    const start = req.body.start;
-    const end = req.body.end;
-    const startDate = req.body.start_date; // Thêm tham số start_date
-    const endDate = req.body.end_date; // Thêm tham số end_date
+  const { exact_time, page, pageSize } = req.body;
 
-    const dataToGet = {
-        start: start,
-        end: end,
-        start_date: startDate, // Thêm tham số vào đối tượng
-        end_date: endDate      // Thêm tham số vào đối tượng
-    };
+  const dataToGet = { exact_time, page, pageSize };
 
-    database.getHistory(dataToGet, (err, results) => {
-        if (err) throw err;
-        console.log(results);
-        res.json(results);
-    });
+  database.getHistory(dataToGet, (err, results) => {
+    if (err) throw err;
+    console.log(results);
+    res.json(results);
+  });
 });
+
 
 
 
