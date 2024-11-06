@@ -27,31 +27,31 @@ module.exports = {
     let searchQuery = "SELECT * FROM data";
     const queryParams = [];
 
+    // Nếu có điều kiện tìm kiếm
     if (condition.condition) {
-        if (condition.orderby === 'time') {
-            // Chuyển `time` sang định dạng MM/DD/YYYY, hh:mm:ss AM/PM
-            searchQuery += " WHERE DATE_FORMAT(time, '%m/%d/%Y, %h:%i:%s %p') LIKE ?";
-            queryParams.push(`%${condition.condition}%`);
-        } else {
-            searchQuery += " WHERE " + condition.orderby + " = ?";
-            queryParams.push(condition.condition);
-        }
+        searchQuery += " WHERE " + condition.orderby + " = ?";
+        queryParams.push(condition.condition);
     }
 
-    const page = condition.page || 1;
-    const pageSize = condition.pageSize || 10;
-    const offset = (page - 1) * pageSize;
+    // Nếu có khoảng thời gian, thêm vào truy vấn SQL
+    if (condition.startDate && condition.endDate) {
+        searchQuery += (condition.condition ? " AND" : " WHERE") + " time BETWEEN ? AND ?";
+        queryParams.push(condition.startDate, condition.endDate);
+    }
 
-    searchQuery += " ORDER BY time DESC LIMIT ? OFFSET ?";
-    queryParams.push(pageSize, offset);
+    // Tính toán offset và limit cho phân trang
+    const page = condition.page || 1; // Số trang
+    const pageSize = condition.pageSize || 10; // Kích thước trang
+    const offset = (page - 1) * pageSize; // Tính offset
+
+    searchQuery += " ORDER BY time DESC LIMIT ? OFFSET ?"; // Câu lệnh phân trang
+    queryParams.push(pageSize, offset); // Thêm pageSize và offset vào params
 
     console.log("Truy vấn SQL:", searchQuery);
     console.log("Tham số:", queryParams);
 
     connection.query(searchQuery, queryParams, callback);
 },
-
-
 
 
 

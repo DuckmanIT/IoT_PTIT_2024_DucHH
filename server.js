@@ -323,14 +323,12 @@ app.put('/api/update-data', (req, res) => {
 });
 
 app.post('/api/search-data', (req, res) => {
-  console.log("Dữ liệu nhận từ frontend:", req.body);
-
   const condition = req.body.condition;
   const orderby = req.body.orderby;
   const startDate = req.body.startDate;
   const endDate = req.body.endDate;
-  const page = req.body.page || 1;
-  const pageSize = req.body.pageSize || 10;
+  const page = req.body.page || 1; // Số trang hiện tại, mặc định là 1
+  const pageSize = req.body.pageSize || 10; // Số bản ghi trên mỗi trang, mặc định là 10
 
   const dataToSearch = {
       condition: condition,
@@ -341,20 +339,11 @@ app.post('/api/search-data', (req, res) => {
       pageSize: pageSize
   };
 
-  console.log("Đang thực hiện truy vấn với các tham số:", dataToSearch);
-
   database.searchData(dataToSearch, (err, results) => {
-      if (err) {
-          console.error("Lỗi truy vấn:", err);
-          res.status(500).json({ error: "Lỗi truy vấn" });
-      } else {
-          console.log("Kết quả trả về:", results);
-          res.json(results);
-      }
+      if (err) throw err;
+      res.json(results);
   });
 });
-
-
 
 
 app.post('/api/get-history', (req, res) => {
