@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- #0000AA	#000099	#000088	#000077 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <link rel="stylesheet" typr="text/css" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button id="toggleButton">
+                <div id="menuIcon">&#9776;</div>
+            </button>
+            <div class="circle_container">
+                <img  class="circle_image" src="my_img.jpg" alt="Your Image">
+            </div>
+            <div class="sidebar">
+                <div class="sidebar-content">
+                    <a href="trang_chu.html">Dashboard</a>
+                    <a href="profile.html">Xem Profile</a>
+                    <a href="bang_thong_tin.html">Thông tin chi tiết</a>
+                    <a href="lich_su_hanh_dong.html">Lịch sử hành động</a>
+                    <a href="#">Bai 5</a>
+                </div>
+            </div>
+            
+        </div>
+        <div class="content">
+            <div class="large-box-container">
+                <div class="large-box" style="width: 100%;">
+                    <canvas id="windChart" width="400" height="200"></canvas>     
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="bai5.js"></script>
+<script src="bai5_chart.js"></script>
+</html>

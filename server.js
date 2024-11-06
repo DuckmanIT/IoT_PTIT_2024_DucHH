@@ -24,9 +24,34 @@ wss.on('connection', (ws) => {
   });
 });
 
+const windws = new WebSocket.Server({ port: 2210 });
+const windClients = new Set();  
+windws.on('connection', (ws) => {
+  console.log('Client connected');
+  windClients.add(ws);
+
+  ws.on('message', (message) => {
+    console.log(`Received: ${message}`);
+  });
+  
+  ws.on('close', () => {
+    // Xóa kết nối đó khỏi danh sách khi nó đóng
+    windClients.delete(ws);
+    console.log('Client disconnected');
+  });
+});
+
 // Hàm gửi thông điệp đến tất cả các kết nối WebSocket
 function broadcast(message) {
   clients.forEach((client) => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(message);
+    }
+  });
+}
+
+function windBroadcast(message) {
+  windClients.forEach((client) => {
     if (client.readyState === WebSocket.OPEN) {
       client.send(message);
     }
@@ -45,40 +70,59 @@ const options = {
 // Tạo kết nối MQTT
 const mqttClient = mqtt.connect(brokerUrl, options);
 
-// Lắng nghe chủ đề MQTT
+// Lắng nghe các chủ đề MQTT
 mqttClient.on('connect', () => {
-  mqttClient.subscribe('iot');
+  mqttClient.subscribe('iot'); // Chủ đề đầu tiên
+  mqttClient.subscribe('add'); // Chủ đề thứ hai
 });
 
 // Xử lý thông điệp từ MQTT và gửi đến WebSocket
 mqttClient.on('message', (topic, message) => {
   const messageText = message.toString();
+  console.log('Data from topic:', topic);
 
   try {
     // Phân tích chuỗi JSON thành một đối tượng
     const data = JSON.parse(messageText.replace(/'/g, '"'));
 
-    // Truy cập từng thông số
-    const temperature_data = data.temperature;
-    const humidity_data = data.humidity;
-    const light_data = data.light;
+    if (topic === 'iot') {
+      // Xử lý dữ liệu từ chủ đề 'iot'
+      const temperature_data = data.temperature;
+      const humidity_data = data.humidity;
+      const light_data = data.light;
 
-    const dataToInsert = {
-      temperature: temperature_data,
-      humidity: humidity_data,
-      light: light_data,
-    };
-    console.log(dataToInsert);
-    
-    database.insertData(dataToInsert, (err, results) => {
-      if (err) throw err;
-      console.log('Inserted ' + results.affectedRows + ' rows');
-    });
+      const dataToInsert = {
+        temperature: temperature_data,
+        humidity: humidity_data,
+        light: light_data,
+      };
 
-  }catch (error) {
+      console.log('Data from iot topic:', dataToInsert);
+
+      database.insertData(dataToInsert, (err, results) => {
+        if (err) throw err;
+        console.log('Inserted ' + results.affectedRows + ' rows');
+      });
+      broadcast(messageText);
+    } else if (topic === 'add') {
+      // Xử lý dữ liệu từ chủ đề 'wind'
+      const wind_speed = data.wind_speed;
+
+      const windDataToInsert = {
+        wind_speed: wind_speed,
+      };
+
+      console.log('Data from wind topic:', windDataToInsert);
+
+      database.insertWindSpeed(windDataToInsert, (err, results) => {
+        if (err) throw err;
+        console.log('Inserted ' + results.affectedRows + ' rows into wind_speed');
+      });
+      windBroadcast(messageText);
+    }
+  } catch (error) {
+    console.error('Error processing message:', error);
   }
-  // Gửi thông điệp đến tất cả kết nối WebSocket
-  broadcast(messageText);
 });
 
 const express = require('express');
@@ -225,6 +269,25 @@ app.post('/api/get-data', (req, res) => {
   }
 
   database.getData(dataToGet, (err, results) => {
+      if (err) throw err;
+      console.log(results);
+      res.json(results);
+  })
+  // Gửi dữ liệu trả lời cho client
+
+});
+
+app.post('/api/get-wind-speed-data', (req, res) => {
+  // Thực hiện xử lý logic API ở đây
+
+  start = req.body.start
+  end = req.body.end
+  const dataToGet = {
+    start : start,
+    end : end
+  }
+
+  database.getWindSpeedData(dataToGet, (err, results) => {
       if (err) throw err;
       console.log(results);
       res.json(results);

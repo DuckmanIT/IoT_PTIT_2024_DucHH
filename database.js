@@ -109,13 +109,45 @@ module.exports = {
   
     connection.query(getQuery, queryParams, callback);
   },
-  
-
-
-
 
   insertHistory : (data, callback) => {
     const insertQuery = "INSERT INTO action (time, client_name, action_name, state) VALUES (?, ?, ?, ?)";
     connection.query(insertQuery, [data.time, data.client_name, data.action_name, data.state], callback);
+  },
+
+  getWindSpeedData: (data, callback) => {
+    const getQuery = "SELECT * FROM wind_speed ORDER BY time DESC LIMIT ?, ?";
+    connection.query(getQuery, [data.start, data.end - data.start], callback);
+  },
+
+  insertWindSpeed: (windSpeed, callback) => {
+    const current_time = Date.now();
+    const gmtNow = new Date(current_time);
+    const haNoiNow = new Date(gmtNow.getTime() + (7 * 3600 * 1000));
+    const formattedTime = haNoiNow.toISOString().slice(0, 19).replace('T', ' ');
+    const insertQuery = "INSERT INTO wind_speed (wind_speed, time) VALUES (?, ?)";
+    connection.query(insertQuery, [windSpeed.wind_speed, formattedTime], callback);
+  },
+
+  getWindSpeedHistory: (data, callback) => {
+    let getQuery = "SELECT * FROM wind_speed";
+    const queryParams = [];
+
+    if (data.exact_time) {
+      getQuery += " WHERE DATE_FORMAT(time, '%m/%d/%Y, %h:%i:%s %p') = ?";
+      queryParams.push(data.exact_time);
+    }
+
+    const page = data.page || 1;
+    const pageSize = data.pageSize || 10;
+    const offset = (page - 1) * pageSize;
+
+    getQuery += " ORDER BY time DESC LIMIT ? OFFSET ?";
+    queryParams.push(pageSize, offset);
+
+    console.log("Truy vấn SQL:", getQuery);
+    console.log("Tham số:", queryParams);
+
+    connection.query(getQuery, queryParams, callback);
   }
 };
