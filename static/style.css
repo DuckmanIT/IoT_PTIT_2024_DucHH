@@ -207,6 +207,41 @@ body {
     background-color: #555;
 }
 
+.info-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.info-box {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-size: 16px;
+    font-weight: bold;
+    width: 45%;
+    text-align: center;
+}
+
+.alert-box {
+    background-color: #fff;
+    color: #000;
+}
+
+.alert-box.blink {
+    background-color: red;
+    color: white;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+
 /* Tạo hiệu ứng nhấp nháy màu đỏ */
 /* .blink-red {
     animation: blink 1s infinite;

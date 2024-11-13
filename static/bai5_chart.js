@@ -63,7 +63,7 @@ socket.onmessage = (event) => {
         const formattedTime = new Intl.DateTimeFormat('en-US', options).format(haNoiNow);
 
         addData(windSpeed, formattedTime);
-  
+        updateWindSpeedAndWarning(windSpeed);
         console.log(`Received data - Wind Speed: ${windSpeed}`);
       } catch (error) {
         console.error('Error parsing JSON:', error);
@@ -85,23 +85,35 @@ function init() {
 
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            // Xử lý dữ liệu trả về tại đây
             var responseData = JSON.parse(xhr.responseText);
-            for(var i = 0; i < responseData.length; i++) {
+            for (var i = 0; i < responseData.length; i++) {
                 var item = responseData[i];
                 const windSpeed = item.wind_speed;
                 const time = item.time;
-
+    
                 const date = new Date(time);
-
+    
                 // Định dạng lại thời gian
-                const options = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+                const options = {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                };
                 const formattedTime = new Intl.DateTimeFormat('en-US', options).format(date);
-
+    
                 addData(windSpeed, formattedTime);
+    
+                // Cập nhật Wind Speed và Warning (chỉ cập nhật lần cuối)
+                if (i === responseData.length - 1) {
+                    updateWindSpeedAndWarning(windSpeed);
+                }
             }
         }
     };
+    
 
     xhr.send(jsonData);
 }
